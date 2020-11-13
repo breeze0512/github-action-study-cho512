@@ -12,16 +12,16 @@ if __name__ == "__main__":
 
     tokyo_timezone = timezone('Asia/Tokyo')
     today = datetime.now(tokyo_timezone)
-    today_data = today.strftime("%Y-%m-%d")
-
+    today_data = today.strftime("%Y年%m月%d日 %H:%M")
 
     covid19_in_japan_url = "https://www3.nhk.or.jp/news/special/coronavirus/data/latest-pref-data.json"
     covid19Data = parsing_beautifulsoup(covid19_in_japan_url)
+    if ("lastmodifed" in covid19Data): today_data = "lastest update time : "+today.strftime("%Y年")+covid19Data["lastmodifed"]
 
-    issue_title = f"Notify the daily Covid19 information in Japan ( {today_data} )"
+    issue_title = f"Covid19 information in Japan ( {today_data} )"
 
     upload_contents = extract_dailyCovid_data(covid19Data)
-    print(access_token, repository_name)
+
     repo = get_github_repo(access_token, repository_name)
     upload_github_issue(repo, issue_title, upload_contents)
     print("Upload Github Issue Success!")

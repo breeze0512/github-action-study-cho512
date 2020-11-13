@@ -2,11 +2,7 @@ import requests
 import json
 
 def parsing_beautifulsoup(url):
-    """
-    뷰티풀 수프로 파싱하는 함수
-    :param url: paring할 URL. 여기선 YES24 Link
-    :return: BeautifulSoup soup Object
-    """
+
 
     data = requests.get(url)
     covid19Data = json.loads(data.text)
@@ -15,11 +11,6 @@ def parsing_beautifulsoup(url):
         enName = jp2en(i['name'])
         i['name']+=" (%s)"%enName
 
-    # html = data.content
-    # # html = urlopen(url)
-    #
-    # soup = BeautifulSoup(html, 'html.parser')
-    # # soup = BeautifulSoup(html, 'html5lib')
     return covid19Data
 
 
@@ -32,7 +23,6 @@ def extract_dailyCovid_data(data):
 
     upload_contents = ''
     new_CovidInfo = data
-    url_prefix = "https://www3.nhk.or.jp/news/special/coronavirus/data/pref/"
 
     for eachData in new_CovidInfo:
         if eachData == 'data47':
@@ -42,7 +32,7 @@ def extract_dailyCovid_data(data):
                 cumulative = eachKen['cumulative']
                 # url_suffix = eachKen['name'].split(" ")[0]
                 # url = url_prefix + url_suffix
-                content = f"" + KenName + ", New Patient : " + str(newP) + "<br/>\n"
+                content = f"" + KenName + ": New Patient : " + str(newP) +"<br/>\n"
                 upload_contents += content
     return upload_contents
 
