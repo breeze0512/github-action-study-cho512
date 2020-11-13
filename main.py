@@ -10,8 +10,8 @@ if __name__ == "__main__":
     access_token = os.environ['COVID_ACTION_TOKEN']
     repository_name = "github-action-study-cho512"
 
-    seoul_timezone = timezone('Asia/Tokyo')
-    today = datetime.now(seoul_timezone)
+    tokyo_timezone = timezone('Asia/Tokyo')
+    today = datetime.now(tokyo_timezone)
     today_data = today.strftime("%Y-%m-%d")
 
 
