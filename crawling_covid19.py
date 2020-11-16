@@ -9,10 +9,32 @@ def parsing_beautifulsoup(url):
 
     for i in covid19Data['data47']:
         enName = jp2en(i['name'])
-        i['name']+=" (%s)"%enName
+        i['name'] = enName
 
     return covid19Data
 
+
+def extract_dailyCovid_data(data):
+    """
+    BeautifulSoup Object에서 book data를 추출하는 함수
+    :param soup: BeautifulSoup soup Object
+    :return: contents(str)
+    """
+
+    upload_contents = ''
+    new_CovidInfo = data
+
+    for eachData in new_CovidInfo:
+        if eachData == 'data47':
+            for eachKen in new_CovidInfo[eachData]:
+                KenName = eachKen['name']
+                newP = eachKen['new']
+                cumulative = eachKen['cumulative']
+                # url_suffix = eachKen['name'].split(" ")[0]
+                # url = url_prefix + url_suffix
+                content = f"" + KenName + ": New Patient : " + str(newP) +"<br/>\n"
+                upload_contents += content
+    return upload_contents
 
 def extract_dailyCovid_data(data):
     """
